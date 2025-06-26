@@ -76,7 +76,7 @@
 
                         
                           <td>
-                            <form action="" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                            <form action="{{ route('probis.destroy', $value->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
                               @csrf
                               @method('DELETE')
                               <a href="" class="btn btn-warning btn-sm">Edit</a>

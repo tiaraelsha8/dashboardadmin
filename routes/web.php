@@ -9,7 +9,7 @@ use App\Http\Controllers\backend\GaleriController;
 use App\Http\Controllers\backend\BidangController;
 use App\Http\Controllers\backend\PegawaiController;
 use App\Http\Controllers\backend\ProbisController;
-
+use App\Http\Controllers\backend\LayananController;
 
 
 Route::get('/', function () {
@@ -39,5 +39,8 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('probis', ProbisController::class);
     Route::post('probis-import', [ProbisController::class,'import'])->name('probis.import');
+
+    Route::resource('layanan', LayananController::class);
+    Route::post('layanan-import', [LayananController::class,'import'])->name('layanan.import');
 
 });

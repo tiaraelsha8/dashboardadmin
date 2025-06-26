@@ -4,20 +4,19 @@ namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Probis;
+use App\Models\Layanan;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Imports\ProbisImport;
-use Illuminate\Support\Facades\Storage;
+use App\Imports\LayananImport;
 
-class ProbisController extends Controller
+class LayananController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $probis = Probis::all();
-        return view('backend.probis.index', compact('probis'));
+        $layanans = Layanan::all();
+        return view('backend.layanan.index', compact('layanans'));
     }
 
     /**
@@ -25,8 +24,8 @@ class ProbisController extends Controller
      */
     public function create()
     {
-        $probis = Probis::all();
-        return view('backend.probis.create', compact('probis'));
+        $layanans = Layanan::all();
+        return view('backend.layanan.create', compact('layanans'));
     }
 
     /**
@@ -66,14 +65,7 @@ class ProbisController extends Controller
      */
     public function destroy(string $id)
     {
-         //get by ID
-         $probis = Probis::findOrFail($id);
-
-         //delete 
-         $probis->delete();
- 
-         //redirect to index
-         return redirect()->route('probis.index')->with(['success' => 'Data Berhasil Dihapus!']);
+        //
     }
 
     public function import(Request $request)
@@ -85,9 +77,9 @@ class ProbisController extends Controller
             'file' => 'required|max:2048'
         ]);
 
-        Excel::import(new ProbisImport, $request->file('file'));
+        Excel::import(new LayananImport, $request->file('file'));
         
         //redirect to index
-        return redirect()->route('probis.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        return redirect()->route('layanan.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
 }
