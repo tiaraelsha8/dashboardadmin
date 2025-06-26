@@ -18,7 +18,7 @@
     </div>
 @endif
 
-    <a href="{{ route ('bidang.create') }}" class="btn btn-primary btn-sm mb-3">Tambah</a>
+    
     
     <div class="container-fluid">
         <div class="row">
@@ -32,6 +32,8 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
+                
+                <a href="{{ route ('bidang.create') }}" class="btn btn-primary btn-sm mb-3 mt-3">Tambah</a>
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
