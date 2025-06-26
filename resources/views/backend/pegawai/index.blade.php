@@ -18,7 +18,7 @@
     </div>
 @endif
 
-    <a href="{{ route ('pegawai.create') }}" class="btn btn-primary btn-sm mb-3">Tambah</a>
+    
     
     <div class="container-fluid">
         <div class="row">
@@ -29,9 +29,11 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Data Pegawai</h3>
+                
               </div>
               <!-- /.card-header -->
               <div class="card-body">
+                <a href="{{ route ('pegawai.create') }}" class="btn btn-primary btn-sm mb-3">Tambah</a>
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
@@ -52,7 +54,7 @@
                           <td>{{$value->nip}}</td>
                           <td>{{$value->jabatan}}</td>
                           <td>{{$value->bidang->nama_bidang}}</td>
-                          <td>{{$value->nip}}</td>
+
                           <td>
                             <img src="{{ asset('storage/pegawai/'.$value->foto) }}" style="width:300px; height:200px; object-fit:contain;">
                           </td>
