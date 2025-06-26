@@ -30,32 +30,45 @@
                     </div>
                 </div>
 
-                <p class="text-center">Masukkan username & password untuk login</p>
+                <p class="text-center">Masukkan password baru</p>
 
-                @if (session('success'))
-                    <div class="alert alert-success text-center">
-                        {{ session('success') }}
+                @if (session('status'))
+                    <div class="alert alert-success">
+                        {{ session('status') }}
                     </div>
                 @endif
 
-                @if ($errors->has('username'))
-                    <div class="alert alert-danger text-center">
-                        {{ $errors->first('username') }}
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        {{ $errors->first() }}
                     </div>
                 @endif
 
-                <form action="{{ route('login.submit') }}" method="POST">
+                <form action="{{ route('password.update') }}" method="POST">
                     @csrf
+                    <input type="hidden" name="token" value="{{ $token }}">
+
                     <div class="input-group mb-3">
-                        <input type="text" name="username" class="form-control" placeholder="Username" required>
+                        <input type="email" name="email" class="form-control" value="{{ $email ?? old('email') }}"
+                            required placeholder="Email">
                         <div class="input-group-append">
                             <div class="input-group-text">
-                                <span class="fas fa-user"></span>
+                                <span class="fas fa-mail"></span>
                             </div>
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" name="password" class="form-control" placeholder="Password" required>
+                        <input type="password" name="password" class="form-control" placeholder="Password Baru"
+                            required>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="password" name="password_confirmation" class="form-control"
+                            placeholder="Konfirmasi Password" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -63,8 +76,8 @@
                         </div>
                     </div>
                     <div class="col-6 d-flex gap-3">
-                        <button type="submit" class="btn btn-primary btn-block w-60 text-nowrap">Masuk</button> <br>
-                        <a href="{{ route('password.request') }}" class="btn btn-outline-secondary w-60 text-nowrap">Lupa Password?</a>
+                        <button type="submit" class="btn btn-primary btn-block w-60 text-nowrap">Reset
+                            Password</button>
                     </div>
                 </form>
             </div>
