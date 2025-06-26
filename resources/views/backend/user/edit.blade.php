@@ -41,6 +41,14 @@
                             @enderror
 
                             <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" class="form-control" name="email" value="{{ $user->email }}">
+                            </div>
+                            @error('email')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+
+                            <div class="form-group">
                                 <label>Password Lama</label>
                                 <input type="password" name="current_password" class="form-control" required
                                     placeholder="isikan password lama">

@@ -21,6 +21,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required',
             'username' => 'required|unique:users,username,' . $id,
+            'email' => 'required',
             'password' => 'nullable|string|min:6|confirmed',
             'current_password' => 'required', // wajib isi password lama
         ]);
@@ -54,6 +55,8 @@ class UserController extends Controller
             // Simpan perubahan data
             $user->name = $request->name;
             $user->username = $request->username;
+            $user->email = $request->email;
+
 
             // Update password baru jika diisi
             if ($request->filled('password')) {
