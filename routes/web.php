@@ -8,6 +8,7 @@ use App\Http\Controllers\backend\UserController;
 use App\Http\Controllers\backend\GaleriController;
 use App\Http\Controllers\backend\BidangController;
 use App\Http\Controllers\backend\PegawaiController;
+use App\Http\Controllers\backend\ProbisController;
 
 
 
@@ -31,7 +32,12 @@ Route::middleware('auth')->group(function () {
     Route::resource('galeri', GaleriController::class);
 
     Route::resource('bidang', BidangController::class);
+    Route::post('bidang-import', [BidangController::class,'import'])->name('bidang.import');;
 
     Route::resource('pegawai', PegawaiController::class);
+    Route::post('pegawai-import', [PegawaiController::class,'import'])->name('pegawai.import');
+
+    Route::resource('probis', ProbisController::class);
+    Route::post('probis-import', [ProbisController::class,'import'])->name('probis.import');
 
 });
