@@ -18,7 +18,7 @@
     </div>
 @endif
 
-    <a href="{{ route ('galeri.create') }}" class="btn btn-primary btn-sm mb-3">Tambah</a>
+    
     
     <div class="container-fluid">
         <div class="row">
@@ -32,6 +32,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
+                <a href="{{ route ('galeri.create') }}" class="btn btn-primary btn-sm mb-3">Tambah</a>
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
@@ -62,7 +63,7 @@
                         </tr>
                     @empty
                     <tr>
-                      <td colspan="4" class="text-center">Belum ada data galeri</td>
+                      <td colspan="5" class="text-center">Belum ada data galeri</td>
                     </tr>
                     @endforelse
                 </tbody>

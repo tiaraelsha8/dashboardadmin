@@ -9,6 +9,9 @@ use App\Models\Bidang;
 use Illuminate\Support\Facades\Storage;
 use File;
 
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\PegawaiImport;
+
 class PegawaiController extends Controller
 {
     /**
@@ -85,7 +88,7 @@ class PegawaiController extends Controller
         //validate form
         $request->validate([
             'nama' => 'required|string|max:100',
-            'nip' => 'required|string|max:50|unique:pegawais,nip',
+            'nip' => 'required|string|max:50',
             'jabatan' => 'required|string|max:100',
             'bidang_id' => 'required|exists:bidangs,id',
             'foto' => 'image|mimes:jpg,jpeg,png|max:2048',
@@ -141,5 +144,20 @@ class PegawaiController extends Controller
 
         //redirect to index
         return redirect()->route('pegawai.index')->with(['success' => 'Data Berhasil Dihapus!']);
+    }
+
+    public function import(Request $request)
+    {
+
+        
+        //validate form
+        $request->validate([
+            'file' => 'required|max:2048'
+        ]);
+
+        Excel::import(new PegawaiImport, $request->file('file'));
+        
+        //redirect to index
+        return redirect()->route('pegawai.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
 }

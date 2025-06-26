@@ -5,6 +5,8 @@ namespace App\Http\Controllers\backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Bidang;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\BidangImport;
 
 class BidangController extends Controller
 {
@@ -94,5 +96,20 @@ class BidangController extends Controller
  
          //redirect to index
          return redirect()->route('bidang.index')->with(['success' => 'Data Berhasil Dihapus!']);
+    }
+
+    public function import(Request $request)
+    {
+
+        
+        //validate form
+        $request->validate([
+            'file' => 'required|max:2048'
+        ]);
+
+        Excel::import(new BidangImport, $request->file('file'));
+        
+        //redirect to index
+        return redirect()->route('bidang.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
 }
