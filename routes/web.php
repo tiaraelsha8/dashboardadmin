@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\CetakController;
 use App\Http\Controllers\ResetPasswordController;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -14,6 +15,12 @@ use App\Http\Controllers\backend\GaleriController;
 use App\Http\Controllers\backend\BidangController;
 use App\Http\Controllers\backend\PegawaiController;
 use App\Http\Controllers\backend\ProbisController;
+use App\Http\Controllers\backend\LokasiInternetController;
+
+use App\Http\Controllers\frontend\BeritaController;
+use App\Http\Controllers\frontend\PetaController;
+
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -51,7 +58,17 @@ Route::middleware('auth')->group(function () {
     Route::resource('probis', ProbisController::class);
     Route::post('probis-import', [ProbisController::class,'import'])->name('probis.import');
 
+    Route::get('/cetak-surat/{id}', [CetakController::class, 'cetak'])->name('cetak.pegawai');
+
+    Route::resource('lokasi', LokasiInternetController::class);
+
 });
+
+Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
+
+
+Route::get('/peta', [PetaController::class, 'index'])->name('peta.index');
+
 
 // Route::get('/test-email', function () {
 //     try {

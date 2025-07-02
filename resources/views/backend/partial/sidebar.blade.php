@@ -126,6 +126,15 @@
             </a>
           </li>
 
+          <li class="nav-item">
+            <a href="{{ route ('lokasi.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-table"></i>
+              <p>
+                Lokasi
+              </p>
+            </a>
+          </li>
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
