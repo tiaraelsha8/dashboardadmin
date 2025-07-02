@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="{{ asset('templateadmin/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('templateadmin/dist/css/adminlte.min.css') }}">
+    <!-- Google reCAPTCHA Script -->
+    {!! NoCaptcha::renderJs() !!}
 </head>
 
 <body class="hold-transition login-page">
@@ -46,6 +48,7 @@
 
                 <form action="{{ route('login.submit') }}" method="POST">
                     @csrf
+
                     <div class="input-group mb-3">
                         <input type="text" name="username" class="form-control" placeholder="Username" required>
                         <div class="input-group-append">
@@ -54,6 +57,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="input-group mb-3">
                         <input type="password" name="password" class="form-control" placeholder="Password" required>
                         <div class="input-group-append">
@@ -62,9 +66,19 @@
                             </div>
                         </div>
                     </div>
+
+                    {{-- ✅ reCAPTCHA --}}
+                    <div class="mb-3">
+                        {!! NoCaptcha::display() !!}
+                        @error('g-recaptcha-response')
+                            <div class="text-danger small mt-1">{{ $message }}</div>
+                        @enderror
+                    </div>
+
                     <div class="col-6 d-flex gap-3">
                         <button type="submit" class="btn btn-primary btn-block w-60 text-nowrap">Masuk</button> <br>
-                        <a href="{{ route('password.request') }}" class="btn btn-outline-secondary w-60 text-nowrap">Lupa Password?</a>
+                        <a href="{{ route('password.request') }}"
+                            class="btn btn-outline-secondary w-60 text-nowrap">Lupa Password?</a>
                     </div>
                 </form>
             </div>
@@ -78,6 +92,7 @@
     <script src="{{ asset('templateadmin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('templateadmin/dist/js/adminlte.min.js') }}"></script>
+
 </body>
 
 </html>

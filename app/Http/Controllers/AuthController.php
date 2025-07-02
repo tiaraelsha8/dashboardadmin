@@ -23,9 +23,11 @@ class AuthController extends Controller
     // Proses login
     public function login(Request $request)
     {
-        $credentials = $request->validate([
-            'username' => ['required'],
-            'password' => ['required'],
+        // ✅ Validasi input + reCAPTCHA
+        $request->validate([
+            'username' => 'required',
+            'password' => 'required',
+            'g-recaptcha-response' => 'required|captcha',
         ]);
 
         // Buat key berdasarkan IP dan username untuk rate limit
@@ -39,6 +41,9 @@ class AuthController extends Controller
                 'username' => "Terlalu banyak percobaan gagal. Coba lagi dalam {$minutes} menit.",
             ]);
         }
+
+        // ✅ Ambil credential username & password saja (tanpa CAPTCHA!)
+        $credentials = $request->only('username', 'password');
 
         // Proses login
         if (Auth::attempt($credentials)) {

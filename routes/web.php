@@ -64,6 +64,14 @@ Route::middleware('auth')->group(function () {
 
 });
 
+Route::get('/coba-captcha', function () {
+    return view('coba-captcha');
+});
+
+Route::get('/cek-env', function () {
+    return env('NOCAPTCHA_SITEKEY');
+});
+
 Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
 
 

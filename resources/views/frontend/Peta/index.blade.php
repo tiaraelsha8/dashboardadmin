@@ -71,7 +71,7 @@
 
     <script>
         // Inisialisasi peta
-        var map = L.map('map').setView([-0.1, 114.5], 9); // Pusatkan di Murung Raya
+        var map = L.map('map').setView([-0.6391521, 114.5679174], 15); // Pusatkan di Murung Raya
 
         // Tile layer OpenStreetMap
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
