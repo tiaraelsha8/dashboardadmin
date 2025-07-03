@@ -100,6 +100,15 @@
           </li>
 
           <li class="nav-item">
+            <a href="{{ route ('berita.index') }}" class="nav-link">
+              <i class="nav-icon far fa-image"></i>
+              <p>
+                Berita
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
             <a href="{{ route ('bidang.index') }}" class="nav-link">
               <i class="nav-icon fas fa-table"></i>
               <p>
@@ -131,6 +140,14 @@
               <i class="nav-icon fas fa-table"></i>
               <p>
                 Layanan
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route ('data.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-table"></i>
+              <p>
+                Data
               </p>
             </a>
           </li>

@@ -10,11 +10,16 @@ use App\Http\Controllers\backend\BidangController;
 use App\Http\Controllers\backend\PegawaiController;
 use App\Http\Controllers\backend\ProbisController;
 use App\Http\Controllers\backend\LayananController;
+use App\Http\Controllers\backend\DataController;
+use App\Http\Controllers\frontend\BeritaController;
+use App\Http\Controllers\backend\BeritabackController;
 
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/lihat-berita', [BeritaController::class, 'index']);
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
@@ -31,6 +36,8 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('galeri', GaleriController::class);
 
+    Route::resource('berita', BeritabackController::class);
+
     Route::resource('bidang', BidangController::class);
     Route::post('bidang-import', [BidangController::class,'import'])->name('bidang.import');;
 
@@ -42,5 +49,8 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('layanan', LayananController::class);
     Route::post('layanan-import', [LayananController::class,'import'])->name('layanan.import');
+
+    Route::resource('data', DataController::class);
+    Route::post('data-import', [DataController::class,'import'])->name('data.import');
 
 });
