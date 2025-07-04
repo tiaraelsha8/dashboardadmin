@@ -15,7 +15,7 @@ class LokasiInternetController extends Controller
      */
     public function index()
     {
-        $lokasi = lokasi::all();
+        $lokasi = Lokasi::all();
         return view('backend.lokasi.index', compact('lokasi'));
     }
 
@@ -39,7 +39,7 @@ class LokasiInternetController extends Controller
             'keterangan' => 'nullable',
         ]);
 
-        lokasi::create($request->all());
+        Lokasi::create($request->all());
         return redirect()->route('lokasi.index')->with('success', 'Data berhasil disimpan.');
     }
 
@@ -56,7 +56,7 @@ class LokasiInternetController extends Controller
      */
     public function edit(string $id)
     {
-        $lokasi = lokasi::findOrFail($id);
+        $lokasi = Lokasi::findOrFail($id);
         return view('backend.lokasi.edit', compact('lokasi'));
     }
 
@@ -65,6 +65,7 @@ class LokasiInternetController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        //validate form
         $request->validate([
             'nama_lokasi' => 'required',
             'latitude' => 'required|numeric',
@@ -72,7 +73,12 @@ class LokasiInternetController extends Controller
             'keterangan' => 'nullable',
         ]);
 
-        lokasi::findOrFail($id)->update($request->all());
+        //get by ID
+        $lokasi = Lokasi::findOrFail($id);
+
+        //update 
+        $lokasi->update($request->all());
+
         return redirect()->route('lokasi.index')->with('success', 'Data berhasil diperbarui.');
     }
 
@@ -81,7 +87,13 @@ class LokasiInternetController extends Controller
      */
     public function destroy(string $id)
     {
-        lokasi::destroy($id);
-        return redirect()->route('lokasi.index')->with('success', 'Data berhasil dihapus.');
+        //get by ID
+        $lokasi = Lokasi::findOrFail($id);
+
+        //delete 
+        $lokasi->delete();
+
+        //redirect to index
+        return redirect()->route('lokasi.index')->with(['success' => 'Data Berhasil Dihapus!']);
     }
 }

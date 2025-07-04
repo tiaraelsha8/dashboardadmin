@@ -74,7 +74,6 @@ class BidangController extends Controller
 
         //get product by ID
         $bidangs = Bidang::findOrFail($id);
-
         
         //update 
         $bidangs->update($request->all());
