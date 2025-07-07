@@ -13,8 +13,9 @@ class Bidang extends Model
 
     protected $fillable = ['nama_bidang'];
 
+    // Relasi ke Pegawai
     public function pegawais()
     {
-        return $this->hasMany(Pegawai::class, 'bidang_id');
+        return $this->hasMany(Pegawai::class);
     }
 }

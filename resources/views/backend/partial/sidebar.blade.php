@@ -109,6 +109,15 @@
           </li>
 
           <li class="nav-item">
+            <a href="{{ route ('jabatan.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-table"></i>
+              <p>
+                Jabatan
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
             <a href="{{ route ('pegawai.index') }}" class="nav-link">
               <i class="nav-icon fas fa-table"></i>
               <p>

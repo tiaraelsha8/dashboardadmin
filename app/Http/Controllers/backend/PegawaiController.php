@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Pegawai;
 use App\Models\Bidang;
+use App\Models\Jabatan;
 use Illuminate\Support\Facades\Storage;
 use File;
 
@@ -19,7 +20,7 @@ class PegawaiController extends Controller
      */
     public function index()
     {
-        $pegawais = Pegawai::with('bidang')->get();
+         $pegawais = Pegawai::with(['bidang', 'jabatan'])->get();
         return view('backend.pegawai.index', compact('pegawais'));
     }
 
@@ -29,7 +30,8 @@ class PegawaiController extends Controller
     public function create()
     {
         $bidangs = Bidang::all();
-        return view('backend.pegawai.create', compact('bidangs'));
+        $jabatans = Jabatan::all();
+        return view('backend.pegawai.create', compact('bidangs','jabatans'));
     }
 
     /**
@@ -39,8 +41,7 @@ class PegawaiController extends Controller
     {
         $request->validate([
             'nama' => 'required|string|max:100',
-            'nip' => 'required|string|max:50|unique:pegawais,nip',
-            'jabatan' => 'required|string|max:100',
+            'jabatan_id' => 'required|exists:jabatans,id',
             'bidang_id' => 'required|exists:bidangs,id',
             'foto' => 'image|mimes:jpg,jpeg,png|max:2048',
         ]);
@@ -52,8 +53,7 @@ class PegawaiController extends Controller
         //create 
         Pegawai::create([
             'nama' => $request->nama,
-            'nip' => $request->nip,
-            'jabatan' => $request->jabatan,
+            'jabatan_id' => $request->jabatan_id,
             'bidang_id' => $request->bidang_id,
             'foto' => $image->hashName(),
         ]);
@@ -76,8 +76,9 @@ class PegawaiController extends Controller
     {
         $pegawais = Pegawai::find($id);
         $bidangs = Bidang::get();
+        $jabatans = Jabatan::get();
 
-        return view('backend.pegawai.edit', compact('pegawais', 'bidangs'));
+        return view('backend.pegawai.edit', compact('pegawais', 'bidangs', 'jabatans'));
     }
 
     /**
@@ -88,8 +89,7 @@ class PegawaiController extends Controller
         //validate form
         $request->validate([
             'nama' => 'required|string|max:100',
-            'nip' => 'required|string|max:50',
-            'jabatan' => 'required|string|max:100',
+            'jabatan_id' => 'required|exists:bidangs,id',
             'bidang_id' => 'required|exists:bidangs,id',
             'foto' => 'image|mimes:jpg,jpeg,png|max:2048',
         ]);
@@ -110,7 +110,7 @@ class PegawaiController extends Controller
             $pegawais->update([
                 'nama' => $request->nama,
                 'nip' => $request->nip,
-                'jabatan' => $request->jabatan,
+                'jabatan' => $request->jabatan_id,
                 'bidang_id' => $request->bidang_id,
                 'foto' => $image->hashName(),
             ]);
@@ -119,7 +119,7 @@ class PegawaiController extends Controller
             $pegawais->update([
                 'nama' => $request->nama,
                 'nip' => $request->nip,
-                'jabatan' => $request->jabatan,
+                'jabatan_id' => $request->jabatan_id,
                 'bidang_id' => $request->bidang_id,
             ]);
         }

@@ -30,6 +30,8 @@
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
 
+            <p>Isikan dengan awalan huruf besar, contoh : E-Goverment, Umum Dan Kepegawaian</p>
+
             <div class="box-footer">
                 <button type="submit" class="btn btn-primary">Simpan</button>
                 <a href="{{ route('bidang.index') }}" class="btn btn-default">Kembali</a>

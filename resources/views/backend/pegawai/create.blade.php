@@ -33,18 +33,17 @@
                     @enderror
 
                     <div class="form-group">
-                        <label>NIP</label>
-                        <input type="text" class="form-control" name="nip" placeholder="Isikan NIP Pegawai">
-                    </div>
-                    @error('nip')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-
-                    <div class="form-group">
                         <label>Jabatan</label>
-                        <input type="text" class="form-control" name="jabatan" placeholder="Isikan Jabatan Pegawai">
+                        <select name="jabatan_id" class="form-control" id="">
+                            <option value="">-- Pilih Jabatan --</option>
+                            @forelse ($jabatans as $item)
+                                <option value="{{ $item->id }}"> {{ $item->nama_jabatan }} </option>
+                            @empty
+                                <option value="">Tidak Ada Data Jabatan</option>
+                            @endforelse
+                        </select>
                     </div>
-                    @error('jabatan')
+                    @error('jabatan_id')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
 
