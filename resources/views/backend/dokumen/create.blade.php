@@ -37,5 +37,6 @@
                 <button type="submit" class="btn btn-primary">Simpan</button>
                 <a href="{{ route ('dokumen.index') }}" class="btn btn-default">Kembali</a>
             </div>
+        </div>
     </form>
 @endsection

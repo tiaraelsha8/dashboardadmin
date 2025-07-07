@@ -65,6 +65,7 @@
                         <button type="submit" class="btn btn-primary">Simpan</button>
                         <a href="{{ route('pegawai.index') }}" class="btn btn-default">Kembali</a>
                     </div>
+                </div>
             </form>
         </div>
     </div>
