@@ -152,9 +152,9 @@
     <script src="{{ asset('templateadmin/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('templateadmin/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
     <!-- AdminLTE App -->
-    <script src="../../dist/js/adminlte.min.js"></script>
+    <script src="{{ asset('templateadmin/dist/js/adminlte.min.js') }}"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src="../../dist/js/demo.js"></script>
+    <script src="{{ asset('templateadmin/dist/js/demo.js') }}"></script>
     <!-- Page specific script -->
     <script>
         $(function() {
@@ -176,38 +176,38 @@
         });
     </script>
 
-     {{-- Leaflet CSS & JS --}}
-     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
-     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
- 
-     <script>
-         var map = L.map('map').setView([-0.1, 114.5], 9); // Fokus ke Murung Raya
- 
-         // Tambahkan peta dasar
-         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-             attribution: '© OpenStreetMap contributors'
-         }).addTo(map);
- 
-         var marker;
- 
-         // Event klik pada peta
-         map.on('click', function(e) {
-             var lat = e.latlng.lat.toFixed(7);
-             var lng = e.latlng.lng.toFixed(7);
- 
-             document.getElementById('latitude').value = lat;
-             document.getElementById('longitude').value = lng;
- 
-             if (marker) {
-                 map.removeLayer(marker);
-             }
- 
-             marker = L.marker([lat, lng]).addTo(map);
-         });
-     </script>
+    {{-- Leaflet CSS & JS --}}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+
+    <script>
+        var map = L.map('map').setView([-0.1, 114.5], 9); // Fokus ke Murung Raya
+
+        // Tambahkan peta dasar
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        var marker;
+
+        // Event klik pada peta
+        map.on('click', function(e) {
+            var lat = e.latlng.lat.toFixed(7);
+            var lng = e.latlng.lng.toFixed(7);
+
+            document.getElementById('latitude').value = lat;
+            document.getElementById('longitude').value = lng;
+
+            if (marker) {
+                map.removeLayer(marker);
+            }
+
+            marker = L.marker([lat, lng]).addTo(map);
+        });
+    </script>
 
     @stack('scripts')
-    
+
 </body>
 
 </html>
