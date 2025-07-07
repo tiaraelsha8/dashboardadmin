@@ -22,7 +22,7 @@ class UserController extends Controller
             'name' => 'required',
             'username' => 'required|unique:users,username,' . $id,
             'email' => 'required',
-            'password' => 'nullable|string|min:6|confirmed',
+            'password' => 'nullable|string|min:8|confirmed',
             'current_password' => 'required', // wajib isi password lama
         ]);
 
