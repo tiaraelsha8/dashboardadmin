@@ -110,7 +110,7 @@ class PegawaiController extends Controller
             $pegawais->update([
                 'nama' => $request->nama,
                 'nip' => $request->nip,
-                'jabatan' => $request->jabatan_id,
+                'jabatan_id' => $request->jabatan_id,
                 'bidang_id' => $request->bidang_id,
                 'foto' => $image->hashName(),
             ]);
