@@ -81,10 +81,24 @@
         // Data dari controller Laravel
         var lokasi = @json($lokasi);
 
+        // Tambahkan marker dan lingkaran jangkauan
         lokasi.forEach(function(item) {
             var marker = L.marker([item.latitude, item.longitude]).addTo(map);
-            marker.bindPopup("<strong>" + item.nama_lokasi + "</strong><br>" + (item.keterangan ?? ''));
+
+            // Bind popup ke marker
+            marker.bindPopup(
+                "<strong>" + item.nama_lokasi + "</strong><br>" + (item.keterangan ?? '')
+            );
+
+            // Tambahkan lingkaran jangkauan WiFi (misalnya radius 100 meter)
+            var circle = L.circle([item.latitude, item.longitude], {
+                color: 'blue',
+                fillColor: '#aaddff',
+                fillOpacity: 0.3,
+                radius: item.jangkauan_radius || 50 // bisa disesuaikan per titik
+            }).addTo(map);
         });
+
     </script>
 
 </body>
