@@ -22,6 +22,8 @@ use App\Http\Controllers\backend\JabatanController;
 use App\Http\Controllers\frontend\BeritaController;
 use App\Http\Controllers\frontend\PetaController;
 
+use App\Http\Controllers\CkanController;
+
 
 
 Route::get('/', function () {
@@ -52,13 +54,14 @@ Route::middleware('auth')->group(function () {
     Route::resource('/galeri', GaleriController::class);
 
     Route::resource('/bidang', BidangController::class);
-    Route::post('/bidang-import', [BidangController::class,'import'])->name('bidang.import');;
+    Route::post('/bidang-import', [BidangController::class, 'import'])->name('bidang.import');
+    ;
 
     Route::resource('/pegawai', PegawaiController::class);
-    Route::post('/pegawai-import', [PegawaiController::class,'import'])->name('pegawai.import');
+    Route::post('/pegawai-import', [PegawaiController::class, 'import'])->name('pegawai.import');
 
     Route::resource('/probis', ProbisController::class);
-    Route::post('/probis-import', [ProbisController::class,'import'])->name('probis.import');
+    Route::post('/probis-import', [ProbisController::class, 'import'])->name('probis.import');
 
     Route::get('/cetak-surat/{id}', [CetakController::class, 'cetak'])->name('cetak.pegawai');
 
@@ -84,15 +87,51 @@ Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
 
 Route::get('/peta', [PetaController::class, 'index'])->name('peta.index');
 
+Route::prefix('ckan')->controller(CkanController::class)->group(function () {
+    // Main pages
+    Route::get('/', 'index')->name('ckan.index');
+    Route::get('/search', 'search')->name('ckan.search');
 
-// Route::get('/test-email', function () {
-//     try {
-//         Mail::raw('Ini adalah email percobaan dari Laravel', function ($message) {
-//             $message->to('elshawinatiara@gmail.COM') // ← ganti dengan email tujuan
-//                     ->subject('Test Email Laravel');
-//         });
-//         return 'Email berhasil dikirim!';
-//     } catch (\Exception $e) {
-//         return 'Gagal kirim email: ' . $e->getMessage();
-//     }
-// });
+    // Datasets CRUD
+    Route::get('/create', 'create')->name('ckan.create');
+    Route::post('/store', 'store')->name('ckan.store');
+    Route::get('/dataset/{id}', 'show')->name('ckan.show');
+    Route::get('/dataset/{id}/edit', 'edit')->name('ckan.edit');
+    Route::put('/dataset/{id}', 'update')->name('ckan.update');
+    Route::delete('/dataset/{id}', 'destroy')->name('ckan.destroy');
+
+    // Resources
+    Route::post('/resource/upload', 'uploadResource')->name('ckan.resource.upload');
+    Route::post('/datastore/{resourceId}', 'queryDataStore')->name('ckan.datastore');
+
+    // Organizations
+    Route::get('/organizations', 'organizations')->name('ckan.organizations');
+    Route::get('/organization/{id}', 'showOrganization')->name('ckan.organization');
+
+    // API
+    Route::get('/health', 'health')->name('ckan.health');
+
+    Route::get('/datasets', 'datasets')->name('ckan.datasets');
+
+    Route::post('/dataset/{id}/track-view', 'trackView')->name('ckan.track-view');
+
+    Route::get('/dataset/{datasetId}/resource/{resourceId}/preview', 'previewData')
+        ->name('ckan.resource.preview');
+
+    // ✅ API endpoint untuk AJAX load data
+    Route::get('/api/dataset/{datasetId}/resource/{resourceId}/data', 'apiGetData')
+        ->name('ckan.resource.api');
+});
+
+/*
+|--------------------------------------------------------------------------
+| API Routes (for external access)
+|--------------------------------------------------------------------------
+*/
+Route::prefix('api/ckan')->group(function () {
+    Route::get('/health', [CkanController::class, 'health']);
+    Route::get('/datasets', [CkanController::class, 'search']);
+    Route::get('/datasets/{id}', [CkanController::class, 'show']);
+    Route::get('/organizations', [CkanController::class, 'organizations']);
+    Route::get('/organizations/{id}', [CkanController::class, 'showOrganization']);
+});
