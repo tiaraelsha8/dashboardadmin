@@ -403,7 +403,7 @@
         <div class="row align-items-center">
             <div class="col-lg-8">
                 <h1><i class="fas fa-database"></i> Dataset</h1>
-                <p class="subtitle mb-0">Temukan dan eksplorasi data terbuka dari Pemerintah Provinsi Kalimantan Tengah</p>
+                <p class="subtitle mb-0">Temukan dan eksplorasi data terbuka dari Pemerintah kabupaten Murung Raya</p>
             </div>
             <div class="col-lg-4">
                 <form action="{{ route('ckan.datasets') }}" method="GET" class="search-box">
@@ -450,7 +450,7 @@
                                value="{{ $org['name'] }}"
                                
                                id="org-{{ $org['id'] }}"
-                               {{ in_array($org['id'], $filters['organizations'] ?? []) ? 'checked' : '' }}
+                               {{ in_array($org['name'], $filters['organizations'] ?? []) ? 'checked' : '' }}
                                onchange="applyFilter()">
                         <span class="text-truncate" style="max-width: 150px;">
                             {{ $org['title'] ?? $org['name'] }}
